@@ -1,0 +1,46 @@
+# NOCE-Net configuration used for the results reported in the paper.
+# Loaded by noce_net.config.load_config(); the `device` entry is filled in
+# at runtime (cuda if available, otherwise cpu).
+
+# ---- Input / embedding dimensions ----
+din: 7                      # d_u: input features per time step (Ichg, Idchg, Qc, Qd, T, t, dt)
+dmodel: 64                  # D: common embedding dimension
+dfec: 2                     # dim of the FEC feature gamma_c = [c, Delta_c]
+task_dim: 6                 # dim of the task vector eta
+patches: [4, 16, 32]        # patch sizes s_k of the multi-patch embedding
+max_cycle_index: 5000       # vocabulary size of the intra-cycle time-index embedding
+index_embed_type: 'learn'   # 'learn' (nn.Embedding) or 'fixed' (sinusoidal)
+max_cycles: 5000
+
+# ---- Transformer encoder / decoder ----
+enc_layers: 6
+dec_layers: 3
+num_heads: 8
+ff_mult: 2
+attn_dropout: 0.1
+ff_dropout: 0.1
+dout: 1                     # d_v: output (voltage) dimension
+
+# ---- Recurrent backbone ----
+num_recurrent_layers: 2     # GRU layers; hidden size d_h = 3 * dmodel
+grad_ckpt: false            # gradient checkpointing for the GRU call
+
+# ---- Training ----
+cyc_batch_size: 2           # batteries per training batch
+align_loss_type: null       # dV/dQ alignment term; null => inactive (as in the paper)
+training_mode: 'cycle'      # response-only training
+leave_emb: null             # null => full model; 'task' | 'fec' | 'learn' only for the embedding ablation
+
+# ---- Auxiliary capacity tracker (instantiated, not trained) ----
+rulm: 'MLP'
+capm: 'MLP'
+num_mixer_layers: 3
+N: 9                        # feature width of the Predictor head (3 states x {value, diff, diff2})
+d_layers: 1
+cap_in: 1
+is_norm: false
+is_rul: false
+is_rul_loss: false
+post_proj_ode: false
+patching: '1D'
+patch: [[1, 3], [2, 3], [4, 3], [8, 3], [16, 3]]

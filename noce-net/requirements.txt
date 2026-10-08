@@ -1,0 +1,9 @@
+torch>=2.0
+numpy
+pandas
+scipy>=1.11
+scikit-learn
+matplotlib>=3.6
+einops
+packaging
+pyyaml

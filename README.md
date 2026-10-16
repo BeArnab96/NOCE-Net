@@ -2,7 +2,7 @@
 
 Code release of the NeurIPS 2026 paper *NOCE-Net: Representation Learning
 for Battery Operational Context via Nested Sequence Modelling* (Arnab
-Bhattacharjee, Wayes Tushar, Tapan Kumar Saha).
+Bhattacharjee, Wayes Tushar, Tapan Kumar Saha). Paper link: <https://arxiv.org/abs/2610.21391>
 
 ## Abstract
 
